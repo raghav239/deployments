@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osticket-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-app
+  template:
+    metadata:
+      name: mysql-po
+      labels:
+        app: mysql-app
+    spec:
+      containers:
+      - name: mysql-container
+        image: mariadb
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-user-pass
+                key: MYSQL_ROOT_PASSWORD
+                    - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-user-pass
+                key: MYSQL_ROOT_PASSWORD
+

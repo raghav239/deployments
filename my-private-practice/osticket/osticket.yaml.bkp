@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osticket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osticket-app
+  template:
+    metadata:
+      name: osticket-po
+      labels:
+        app: osticket-app
+    spec:
+      containers:
+      - name: osticket-container
+        image: osticket/osticket
+        ports:
+        - containerPort: 80
+        env:
+          - name: MYSQL_HOST
+            value: osticket-dbhost
+#          - name: MYSQL_HOST
+#            valueFrom:
+#              configMapKeyRef:
+#                name: osticket-dbhost
+#                key: MYSQL_HOST
+#          - name: MYSQL_USER
+#            valueFrom:
+#              secretKeyRef:
+#                name: db-user-pass
+#                key: MYSQL_USER
+#          - name: MYSQL_PASSWORD
+#            valueFrom:
+#              secretKeyRef:
+#                name: db-user-pass
+#                key: MYSQL_USER
+#          - name: MYSQL_DATABASE
+#            valueFrom:
+#              configMapKeyRef:
+#                name: osticket-config-yaml
+#                key: MYSQL_DATABASE

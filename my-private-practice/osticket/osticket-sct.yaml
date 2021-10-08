@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-user-pass
+  namespace: default
+data:
+  MYSQL_ROOT_PASSWORD: c2VjcmV0
+  MYSQL_USER: b3N0aWNrZXQ=
+  MYSQL_PASSWORD: c2VjcmV0

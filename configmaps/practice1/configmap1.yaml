@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config-yaml
+data:
+  ENV_ONE: "value1"
+  ENV_TWO: "value2"

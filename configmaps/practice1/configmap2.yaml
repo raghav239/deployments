@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-nginx-config-yaml
+data:
+  my-nginx-config.conf: |-
+    server {
+      listen 80;
+      server_name www.astep4it.co.in;
+      gzip on;
+      gzip_types text/plain application/xml;
+      location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+      }
+     }
+     sleep-interval: 25

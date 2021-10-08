@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osticket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osticket-app
+  template:
+    metadata:
+      name: osticket-po
+      labels:
+        app: osticket-app
+    spec:
+      containers:
+      - name: osticket-container
+        image: osticket/osticket
+        
+env:
+          - name: MYSQL_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: osticket-dbhost
+                key: MYSQL_HOST
+         

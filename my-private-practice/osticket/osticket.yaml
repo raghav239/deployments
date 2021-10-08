@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osticket
+  labels:
+    teir: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osticket-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      name: osticket-po
+      labels:
+        app: osticket-app
+    spec:
+      containers:
+      - name: osticket-container
+        image: osticket/osticket
+        ports:
+        - containerPort: 80
+        env:
+          - name: MYSQL_HOST
+            value: 10.40.0.1
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-user-pass
+                key: MYSQL_USER
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-user-pass
+                key: MYSQL_PASSWORD
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: osticket-config-yaml
+                key: MYSQL_DATABASE
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-user-pass
+                key: MYSQL_ROOT_PASSWORD
